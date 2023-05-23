@@ -1,6 +1,6 @@
 """
 Email Parser
-Parses the email and its attributes and return it as a dictionary.
+Parses the email and its attributes and return it as a dictionary or str.
 
 Data Mining:    Final Project
 Date:           May 2023
@@ -10,20 +10,30 @@ Author:         Mohammad Javad Rakhshani
 class EmailParser:
     """
     Email Parser
-    Parses the email and its attributes and return it as a dictionary.
+    Parses the email and its attributes and return it as a dictionary or str.
     """
 
     __file_content: str = ""
 
     def __init__(self, filename: str) -> None:
         """
-        Creat an instance of EmailParser.
+        Create an instance of EmailParser.
 
         Parameters:
         filename (string): filename to read email content.
         """
 
         self.read_file(filename)
+
+    def __init__(self, content: str) -> None:
+        """
+        Create an instance of EmailParser.
+
+        Parameters:
+        content (string): content of email.
+        """
+
+        self.__file_content = content
     
     def read_file(self, filename: str) -> str:
         """
@@ -62,6 +72,20 @@ class EmailParser:
 
         value: str = buffer[start_idx:end_idx]
         return value
+    
+    def parse_all(self, keys: list) -> dict:
+        """
+        Parses a file content and find 'keys' in it.
+
+        Parameters:
+        keys (list): keys to get its values from.
+        """
+        buffer: dict = dict()
+
+        for key in keys:
+            buffer[key] = self.parse(key)
+
+        return buffer
 
     def print_email(self):
         """
