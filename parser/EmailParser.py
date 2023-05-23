@@ -17,13 +17,23 @@ class EmailParser:
 
     def __init__(self, filename: str) -> None:
         """
-        Creat an instance of EmailParser.
+        Create an instance of EmailParser.
 
         Parameters:
         filename (string): filename to read email content.
         """
 
         self.read_file(filename)
+
+    def __init__(self, content: str) -> None:
+        """
+        Create an instance of EmailParser.
+
+        Parameters:
+        content (string): content of email.
+        """
+
+        self.__file_content = content
     
     def read_file(self, filename: str) -> str:
         """
