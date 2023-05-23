@@ -25,7 +25,7 @@ def generate_interface():
     #---------------------------------------functions-------------------------------
 
     """
-    Gets a file dynamiclly in the local computer
+    Gets a file dynamically in the local computer
     Called in the 'get_file_content' method
     """
     def get_file():
@@ -39,13 +39,13 @@ def generate_interface():
 
     """
     def get_file_conten():
-        a=get_file()
-        print(a)
-        parser =  EmailParser("sample.txt")
+        parser =  EmailParser(get_file())
         en_subject_text.set(parser.parse("subject"))
         en_email_text.set(parser.parse("from"))
+        en_mail_text.configure(state='normal')
+        en_mail_text.delete(1.0, tk.END)
         en_mail_text.insert(tk.END,parser.parse("content"))
-    
+        en_mail_text.configure(state='disabled')
     #---------------------------------------labels-------------------------------
     label_frame=tk.Frame(master=root,width="50",height="100")
     subject_label=tk.Label(master=label_frame,text='Subject: ')
