@@ -1,0 +1,3 @@
+from:javad@jav.bin;
+subject:🌍 Hello World!;
+content:Where is the work? It's all by heart! 💙;
