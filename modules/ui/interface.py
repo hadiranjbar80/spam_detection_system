@@ -30,7 +30,7 @@ def generate_interface():
     """
     def get_file():
         filename= filedialog.askopenfilename(filetypes=[("Text files", "*.txt")])
-        with open(filename) as file:
+        with open(filename,encoding="utf-8") as file:
             return file.read()
 
     """
@@ -83,9 +83,24 @@ def generate_interface():
     open_mail_button=tk.Button(master=button_frame,text='Open an Email',command=get_file_conten)
     oprate_spam_button=tk.Button(master=button_frame,text='Detect Spam')
 
-    button_frame.pack(side='left',fill='both')
+    button_frame.pack(side='top',fill='x')
     open_mail_button.pack(padx=PAD_X,pady=PAD_Y)
     oprate_spam_button.pack(padx=PAD_X,pady=PAD_Y)
+
+    #--------------------------------------Program Output---------------------------------
+
+    output_frame=tk.Frame(master=root,width=50,height=500)
+
+    label_icon=tk.Label(master=output_frame,text="✔️,❌")
+    label_icon.pack(padx=PAD_X,pady=PAD_Y)
+
+    label_title=tk.Label(master=output_frame,text='Title spam',font=('bold',15))
+    label_title.pack(padx=PAD_X,pady=PAD_Y)
+
+    label_percent=tk.Label(master=output_frame,text='Percent',font=(6))
+    label_percent.pack(padx=PAD_X,pady=PAD_Y)
+    output_frame.pack(side='top',fill='x')
+
 
     root.mainloop()
 

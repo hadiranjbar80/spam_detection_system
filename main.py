@@ -13,5 +13,3 @@ crawler_control.crawl_and_save("https://raw.githubusercontent.com/matomo-org/ref
                                "database/matomo_referrer_spam_list.txt")
 
 ui.generate_interface()
-
-
