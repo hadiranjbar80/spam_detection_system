@@ -80,7 +80,15 @@ def generate_interface():
             en_mail_text.configure(state='disabled')
         else:
             label_percent.configure(text='Please first open a file!',fg='red')
-            
+    
+    def report_ham():
+        global content
+        global email
+        global ip
+        d.train(content,False,ip,email)
+
+    def report_spam():
+        d.train(content, True,ip,email)
     #---------------------------------------labels-------------------------------
     label_frame=tk.Frame(master=root,width="50",height="100")
     subject_label=tk.Label(master=label_frame,text='Subject: ')
@@ -117,6 +125,7 @@ def generate_interface():
     button_frame=tk.Frame(master=root,width=500,height=500)
     open_mail_button=tk.Button(master=button_frame,text='Open an Email',command=get_file_conten)
     oprate_spam_button=tk.Button(master=button_frame,text='Detect Spam',command=calculate_text)
+    
 
     button_frame.pack(side='top',fill='x')
     open_mail_button.pack(padx=PAD_X,pady=PAD_Y)
@@ -138,6 +147,12 @@ def generate_interface():
     label_error=tk.Label(master=output_frame,font=(4))
     label_error.pack(padx=PAD_X,pady=PAD_Y)
     label_error.pack(side='top',fill='x')
+
+    ham_button=tk.Button(master=output_frame,text='Ham',command=report_ham)
+    spam_button=tk.Button(master=output_frame,text='Spam',command=report_spam)
+
+    spam_button.pack(padx=PAD_X,pady=PAD_Y)
+    ham_button.pack(padx=PAD_X,pady=PAD_Y)
 
     root.mainloop()
 
