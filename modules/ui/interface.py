@@ -92,8 +92,13 @@ def generate_interface():
         global content
         global email
         global ip
-        d.train(content,False,ip,email)
-        d.save()
+        if content != "" and\
+             email != "":
+            d.train(content,False,ip,email)
+            d.save()
+        else:
+            label_percent.configure(text='Please first open a file!',fg='red')
+
 
     """
     User can use this method to train the system, 
@@ -102,8 +107,15 @@ def generate_interface():
     Called in 'spam_button'
     """
     def report_spam():
-        d.train(content, True,ip,email)
-        d.save()
+        global content
+        global email
+        global ip
+        if content != "" and\
+             email != "":
+            d.train(content,True,ip,email)
+            d.save()
+        else:
+            label_percent.configure(text='Please first open a file!',fg='red')
     #---------------------------------------labels-------------------------------
     label_frame=tk.Frame(master=root,width="50",height="100")
     subject_label=tk.Label(master=label_frame,text='Subject: ')
