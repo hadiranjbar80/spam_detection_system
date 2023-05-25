@@ -20,3 +20,13 @@ class email_detector:
                 return True
             else:
                 return False
+            
+    def detect_email_domain(self):
+        email_domain=self._email.split('@')
+        with open('../../database/matomo_referrer_spam_list.txt','r',encoding='utf-8') as file:
+            raw_spam_domains=list(file.readlines())
+            spam_domains=list(map(lambda item: item.strip(), raw_spam_domains))
+            if email_domain[1] in spam_domains:  
+                return True
+            else:
+                return False
