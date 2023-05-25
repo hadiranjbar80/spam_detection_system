@@ -196,24 +196,3 @@ class Model(object):
             json.dump(
                 (self.spam_count_total, self.ham_count_total,
                  self.token_table), f)
-
-d = Detector()
-
-d.train("Hi darlin, how are you? just wanted to thank you for your good job.", False)
-d.train("Way to commit to learning Italian! Make it to a 45 day streak with a quick lesson now", True)
-
-msg1 = "How do you say “on a roll” in Italian?"
-d.score(msg1)
-# => 0.9999947825633266
-
-d.is_spam(msg1)
-# => True
-
-msg2 = "Shaw Academy is now Upskillist, come join us on the Upskillist Learning Platform with access to all courses, forever!"
-d.score(msg2)
-# => 4.021280114849398e-08
-
-d.is_spam(msg2)
-# => False
-
-d.save()
