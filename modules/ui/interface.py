@@ -60,7 +60,8 @@ def generate_interface():
         en_mail_text.configure(state='disabled')
 
     """
-    ToDo: Comments
+    Calculates the score of the email to to check it is spam or not.
+    This calculation is done by three prameters (content, email,ip)
     """
     def calculate_text():
         global content
@@ -81,14 +82,28 @@ def generate_interface():
         else:
             label_percent.configure(text='Please first open a file!',fg='red')
     
+    """
+    User can use this method to train the system, 
+    if the system detects incorrectly
+    (Trains the system by the givin email.)
+    Called in 'ham_button'
+    """
     def report_ham():
         global content
         global email
         global ip
         d.train(content,False,ip,email)
+        d.save()
 
+    """
+    User can use this method to train the system, 
+    if the system detects incorrectly
+    (Trains the system by the givin email.)
+    Called in 'spam_button'
+    """
     def report_spam():
         d.train(content, True,ip,email)
+        d.save()
     #---------------------------------------labels-------------------------------
     label_frame=tk.Frame(master=root,width="50",height="100")
     subject_label=tk.Label(master=label_frame,text='Subject: ')
@@ -148,8 +163,8 @@ def generate_interface():
     label_error.pack(padx=PAD_X,pady=PAD_Y)
     label_error.pack(side='top',fill='x')
 
-    ham_button=tk.Button(master=output_frame,text='Ham',command=report_ham)
-    spam_button=tk.Button(master=output_frame,text='Spam',command=report_spam)
+    ham_button=tk.Button(master=output_frame,text='✔ Report Ham',command=report_ham)
+    spam_button=tk.Button(master=output_frame,text='❌ Report Spam',command=report_spam)
 
     spam_button.pack(padx=PAD_X,pady=PAD_Y)
     ham_button.pack(padx=PAD_X,pady=PAD_Y)
