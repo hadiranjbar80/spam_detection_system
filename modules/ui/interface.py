@@ -10,9 +10,16 @@ Author:         Mohammed Hadi Ranjbar
 from ..parser.EmailParser import EmailParser
 import tkinter as tk
 from tkinter import filedialog
+from ..detector.Detector import Detector
+
+d=Detector(create_new=False)
 
 root=tk.Tk()
 root.resizable(width=False,height=False)
+
+ip = ""
+content = ""
+email = ""
 
 PAD_X=5
 PAD_Y=5
@@ -39,13 +46,28 @@ def generate_interface():
 
     """
     def get_file_conten():
+        global content
+        global ip
+        global email
         parser =  EmailParser(get_file())
+
+        content, ip, email = parser.parse("content"),parser.parse("ip"),parser.parse("email")
         en_subject_text.set(parser.parse("subject"))
-        en_email_text.set(f"{parser.parse('from')} ({parser.parse('ip')})")
+        en_email_text.set(f"{email}({ip}))")
         en_mail_text.configure(state='normal')
         en_mail_text.delete(1.0, tk.END)
-        en_mail_text.insert(tk.END,parser.parse("content"))
+        en_mail_text.insert(tk.END,content)
         en_mail_text.configure(state='disabled')
+
+    """
+    ToDo: Comments
+    """
+    def calculate_text():
+        global content
+        en_mail_text.configure(state='normal')
+        label_percent.configure(text=f"Precent: {d.score(content.lower()) *100:.2f}")
+        en_mail_text.configure(state='disabled')
+
     #---------------------------------------labels-------------------------------
     label_frame=tk.Frame(master=root,width="50",height="100")
     subject_label=tk.Label(master=label_frame,text='Subject: ')
@@ -81,14 +103,13 @@ def generate_interface():
     #---------------------------------------Buttons-------------------------------
     button_frame=tk.Frame(master=root,width=500,height=500)
     open_mail_button=tk.Button(master=button_frame,text='Open an Email',command=get_file_conten)
-    oprate_spam_button=tk.Button(master=button_frame,text='Detect Spam')
+    oprate_spam_button=tk.Button(master=button_frame,text='Detect Spam',command=calculate_text)
 
     button_frame.pack(side='top',fill='x')
     open_mail_button.pack(padx=PAD_X,pady=PAD_Y)
     oprate_spam_button.pack(padx=PAD_X,pady=PAD_Y)
 
     #--------------------------------------Program Output---------------------------------
-
     output_frame=tk.Frame(master=root,width=50,height=500)
 
     label_icon=tk.Label(master=output_frame,text="✔️,❌")
@@ -100,7 +121,6 @@ def generate_interface():
     label_percent=tk.Label(master=output_frame,text='Percent',font=(6))
     label_percent.pack(padx=PAD_X,pady=PAD_Y)
     output_frame.pack(side='top',fill='x')
-
 
     root.mainloop()
 
