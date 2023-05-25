@@ -30,3 +30,16 @@ class email_detector:
                 return True
             else:
                 return False
+
+    def detect_ip_address(self,ip_address):
+        with open('../../database/spam_ips.txt','r',encoding='utf-8') as file:
+            raw_spam_ip_list=list(file.readlines())
+            spam_ip_list=list(map(lambda item: item.strip(), raw_spam_ip_list))
+            if ip_address in spam_ip_list:
+                return True
+            else:
+                return False
+            
+
+a=email_detector('hadi@hadi.com')
+print(a.detect_ip_address('5.10.882.200'))
