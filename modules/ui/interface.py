@@ -41,7 +41,7 @@ def generate_interface():
     def get_file_conten():
         parser =  EmailParser(get_file())
         en_subject_text.set(parser.parse("subject"))
-        en_email_text.set(parser.parse("from"))
+        en_email_text.set(f"{parser.parse('from')} ({parser.parse('ip')})")
         en_mail_text.configure(state='normal')
         en_mail_text.delete(1.0, tk.END)
         en_mail_text.insert(tk.END,parser.parse("content"))
@@ -67,8 +67,8 @@ def generate_interface():
     en_email=tk.Entry(master=entry_frame,textvariable=en_email_text,state='disabled', width=MAX_LENGTH_ENTRY)
 
     entry_frame.pack(side='left',fill='both')
-    en_subject.pack(padx=PAD_X,pady=PAD_Y)
-    en_email.pack(padx=PAD_X,pady=PAD_Y)
+    en_subject.pack(padx=PAD_X,pady=PAD_Y,fill='both')
+    en_email.pack(padx=PAD_X,pady=PAD_Y,fill='both')
 
     #---------------------------------Scroll-----------------------
     v=tk.Scrollbar(entry_frame, orient='vertical')
