@@ -11,5 +11,4 @@ crawler_control.crawl_and_save("http://www.ram.org/ramblings/philosophy/spam/spa
 # Spammers' domain list
 crawler_control.crawl_and_save("https://raw.githubusercontent.com/matomo-org/referrer-spam-list/master/spammers.txt",
                                "database/matomo_referrer_spam_list.txt")
-
 ui.generate_interface()

@@ -12,6 +12,10 @@ class email_detector:
     def __init__(self,email) -> None:
         self._email=email
 
+    """
+    This method detects whether an email is spam or not.
+    True if it is spam otherwise it returns False
+    """ 
     def detect_email(self):
         with open("../../database/ram_spammer_list.txt",'r',encoding='utf-8') as file:
             raw_spam_email_list= list(file.readlines())
@@ -20,7 +24,11 @@ class email_detector:
                 return True
             else:
                 return False
-            
+
+    """
+    This method detects whether an email's domain is spam or not.
+    True if it is spam otherwise it returns False
+    """   
     def detect_email_domain(self):
         email_domain=self._email.split('@')
         with open('../../database/matomo_referrer_spam_list.txt','r',encoding='utf-8') as file:
@@ -31,6 +39,10 @@ class email_detector:
             else:
                 return False
 
+    """
+    This method detects whether an  IP address is spam or not.
+    True if it is spam otherwise it returns False
+    """ 
     def detect_ip_address(self,ip_address):
         with open('../../database/spam_ips.txt','r',encoding='utf-8') as file:
             raw_spam_ip_list=list(file.readlines())
@@ -41,5 +53,7 @@ class email_detector:
                 return False
             
 
-a=email_detector('hadi@hadi.com')
+a=email_detector('aaaa@public.xm.fj.cn')
+print(a.detect_email())
 print(a.detect_ip_address('5.10.882.200'))
+

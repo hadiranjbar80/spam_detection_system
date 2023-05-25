@@ -53,7 +53,7 @@ def generate_interface():
 
         content, ip, email = parser.parse("content"),parser.parse("ip"),parser.parse("email")
         en_subject_text.set(parser.parse("subject"))
-        en_email_text.set(f"{email}({ip}))")
+        en_email_text.set(f"{email}({ip})")
         en_mail_text.configure(state='normal')
         en_mail_text.delete(1.0, tk.END)
         en_mail_text.insert(tk.END,content)
@@ -64,10 +64,13 @@ def generate_interface():
     """
     def calculate_text():
         global content
-        en_mail_text.configure(state='normal')
-        label_percent.configure(text=f"Precent: {d.score(content.lower()) *100:.2f}")
-        en_mail_text.configure(state='disabled')
-
+        if content != '':
+            en_mail_text.configure(state='normal')
+            label_percent.configure(text=f"Percent: {d.score(content.lower()) *100:.2f}",fg='black')
+            en_mail_text.configure(state='disabled')
+        else:
+            label_percent.configure(text='Please first open a file!',fg='red')
+            
     #---------------------------------------labels-------------------------------
     label_frame=tk.Frame(master=root,width="50",height="100")
     subject_label=tk.Label(master=label_frame,text='Subject: ')
@@ -118,9 +121,13 @@ def generate_interface():
     label_title=tk.Label(master=output_frame,text='Title spam',font=('bold',15))
     label_title.pack(padx=PAD_X,pady=PAD_Y)
 
-    label_percent=tk.Label(master=output_frame,text='Percent',font=(6))
+    label_percent=tk.Label(master=output_frame,text='Percent',font=(3))
     label_percent.pack(padx=PAD_X,pady=PAD_Y)
     output_frame.pack(side='top',fill='x')
+
+    label_error=tk.Label(master=output_frame,font=(4))
+    label_error.pack(padx=PAD_X,pady=PAD_Y)
+    label_error.pack(side='top',fill='x')
 
     root.mainloop()
 
