@@ -64,9 +64,19 @@ def generate_interface():
     """
     def calculate_text():
         global content
+        global email
+        global ip
+        email_score=d.score(content.lower(),email.lower(),ip.lower())
         if content != '':
             en_mail_text.configure(state='normal')
-            label_percent.configure(text=f"Percent: {d.score(content.lower()) *100:.2f}",fg='black')
+            label_percent.configure(text=f"Percent: {email_score *100:.2f}",fg='black')
+            if email_score >0.9:
+                label_icon.configure(text='❌',fg='red')
+                label_title.configure(text='Spam')
+            else:
+                label_icon.configure(text='✔',fg='green')
+                label_title.configure(text='Ham')
+
             en_mail_text.configure(state='disabled')
         else:
             label_percent.configure(text='Please first open a file!',fg='red')
