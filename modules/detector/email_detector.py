@@ -17,7 +17,7 @@ class email_detector:
     True if it is spam otherwise it returns False
     """ 
     def detect_email(self):
-        with open("../../database/ram_spammer_list.txt",'r',encoding='utf-8') as file:
+        with open("database/ram_spammer_list.txt",'r',encoding='utf-8') as file:
             raw_spam_email_list= list(file.readlines())
             spam_email_list = map(lambda item: item.strip(), raw_spam_email_list)
             if self._email in spam_email_list:
@@ -31,7 +31,7 @@ class email_detector:
     """   
     def detect_email_domain(self):
         email_domain=self._email.split('@')
-        with open('../../database/matomo_referrer_spam_list.txt','r',encoding='utf-8') as file:
+        with open('database/matomo_referrer_spam_list.txt','r',encoding='utf-8') as file:
             raw_spam_domains=list(file.readlines())
             spam_domains=list(map(lambda item: item.strip(), raw_spam_domains))
             if email_domain[1] in spam_domains:  
@@ -44,7 +44,7 @@ class email_detector:
     True if it is spam otherwise it returns False
     """ 
     def detect_ip_address(self,ip_address):
-        with open('../../database/spam_ips.txt','r',encoding='utf-8') as file:
+        with open('database/spam_ips.txt','r',encoding='utf-8') as file:
             raw_spam_ip_list=list(file.readlines())
             spam_ip_list=list(map(lambda item: item.strip(), raw_spam_ip_list))
             if ip_address in spam_ip_list:
@@ -52,8 +52,3 @@ class email_detector:
             else:
                 return False
             
-
-a=email_detector('aaaa@public.xm.fj.cn')
-print(a.detect_email())
-print(a.detect_ip_address('5.10.882.200'))
-

@@ -8,6 +8,9 @@ Date:           May 2023
 Author:         Mohammad Javad Rakhshani
 """
 
+# Project built-in modules
+import modules.detector.email_detector as email_detector
+
 # Python built-in modules
 import re
 import os
@@ -49,17 +52,30 @@ class Detector:
                         self.TOKENS_RE.findall(content.lower()))
     
 
-    def train(self, content: str, is_spam: bool):
+    def train(self, content: str,  is_spam: bool, email_from: str, ip_from: str):
         """
         Train the model.
 
         Parameters:
         content (str): email content.
         is_spam (bool): spam (True) / ham (False).
+        email_from (str): email address of sender of email.
+        ip_from (str): ip address of the sender of email.
         """
         token_table = self.model.token_table
         if is_spam:
             self.model.spam_count_total += 1
+            with open("database/ram_spammer_list.txt",\
+                        "a") as spam_list:
+                if not email_detector.email_detector(email_from).detect_email():
+                    if spam_list.writable:
+                        spam_list.write("\n" + email_from)
+            with open("database/spam_ips.txt",\
+                        "a") as spam_list:
+                if not email_detector.email_detector(email_from).detect_ip_address(ip_from):
+                    if spam_list.writable:
+                        spam_list.write("\n" + ip_from)
+                        
         else:
             self.model.ham_count_total += 1
 
@@ -79,7 +95,7 @@ class Detector:
         """
         self.model.save()
 
-    def score(self, content: str):
+    def score(self, content: str, email_from: str, ip_from: str):
         """
         Evaluate and return the spam score of a content. 
         The higher the score, the stronger the liklihood that
@@ -87,7 +103,13 @@ class Detector:
 
         Parameters:
         content (str): content of an email.
+        email_from (str): email address of sender of email.
+        ip_from (str): ip address of the sender of email.
         """
+        email_detect = email_detector.email_detector(email_from)
+        spam_email = email_detect.detect_email()
+        spam_ip = email_detect.detect_ip_address(ip_from)
+
         token_table = self.model.token_table
         hashes = self._get_word_list(content.lower())
         scores: list = []
@@ -96,8 +118,12 @@ class Detector:
                 ham_count, spam_count = token_table[h]
                 if spam_count > 0 and ham_count == 0:
                     score = 0.99
+                elif spam_email and spam_ip:
+                    score = 0.99
+                elif spam_count == 0 and ham_count > 0 and (spam_email or spam_ip):
+                    score = 0.80
                 elif spam_count == 0 and ham_count > 0:
-                    score = 0.01
+                    score = 0.2
                 elif self.model.spam_count_total > 0 and self.model.ham_count_total > 0:
 
                     # Prob of spam or ham
