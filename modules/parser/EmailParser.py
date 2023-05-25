@@ -13,8 +13,10 @@ class EmailParser:
     Parses the email and its attributes and return it as a dictionary or str.
     """
 
+    # [Class variables]
     __file_content: str = ""
 
+    # [Methods]
     def __init__(self, filename: str) -> None:
         """
         Create an instance of EmailParser.

@@ -104,5 +104,5 @@ def generate_interface():
 
     root.mainloop()
 
-
-    
+# calculate the percentage
+#print(f"{d.score('Hello Hadi, check this.') *100:.2f}%")
