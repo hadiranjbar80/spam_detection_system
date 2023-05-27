@@ -25,27 +25,28 @@ PAD_X=5
 PAD_Y=5
 MAX_LENGTH_ENTRY = 40
 
-"""
-Geterates the interface of the application
-"""
-def generate_interface():
-    #---------------------------------------functions-------------------------------
 
+def generate_interface():
     """
-    Gets a file dynamically in the local computer
-    Called in the 'get_file_content' method
+    Geterates the interface of the application
     """
+
+    #---------------------------------------functions-------------------------------
     def get_file():
+        """
+        Gets a file dynamically in the local computer
+        Called in the 'get_file_content' method
+        """
         filename= filedialog.askopenfilename(filetypes=[("Text files", "*.txt")])
         with open(filename,encoding="utf-8") as file:
             return file.read()
 
-    """
-    Gets content of a txt file and put the values into the entries
-    called in the 'Open an Email' button
 
-    """
     def get_file_conten():
+        """
+        Gets content of a txt file and put the values into the entries
+        called in the 'Open an Email' button
+        """
         global content
         global ip
         global email
@@ -59,11 +60,11 @@ def generate_interface():
         en_mail_text.insert(tk.END,content)
         en_mail_text.configure(state='disabled')
 
-    """
-    Calculates the score of the email to to check it is spam or not.
-    This calculation is done by three prameters (content, email,ip)
-    """
-    def calculate_text():
+    def calculate_text():     
+        """
+        Calculates the score of the email to to check it is spam or not.
+        This calculation is done by three prameters (content, email,ip)
+        """
         global content
         global email
         global ip
@@ -82,26 +83,26 @@ def generate_interface():
         else:
             label_percent.configure(text='Please first open a file!',fg='red')
     
-    """
-    User can use this method to train the system, 
-    if the system detects incorrectly
-    (Trains the system by the givin email.)
-    Called in 'ham_button'
-    """
     def report_ham():
+        """
+        User can use this method to train the system, 
+        if the system detects incorrectly
+        (Trains the system by the givin email.)
+        Called in 'ham_button'
+        """
         global content
         global email
         global ip
         d.train(content,False,ip,email)
         d.save()
 
-    """
-    User can use this method to train the system, 
-    if the system detects incorrectly
-    (Trains the system by the givin email.)
-    Called in 'spam_button'
-    """
     def report_spam():
+        """
+        User can use this method to train the system, 
+        if the system detects incorrectly
+        (Trains the system by the givin email.)
+        Called in 'spam_button'
+        """
         d.train(content, True,ip,email)
         d.save()
     #---------------------------------------labels-------------------------------
