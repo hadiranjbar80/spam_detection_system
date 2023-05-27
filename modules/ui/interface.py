@@ -11,6 +11,7 @@ from ..parser.EmailParser import EmailParser
 import tkinter as tk
 from tkinter import filedialog
 from ..detector.Detector import Detector
+import winsound
 
 d=Detector(create_new=False)
 
@@ -75,9 +76,11 @@ def generate_interface():
             if email_score >0.9:
                 label_icon.configure(text='❌',fg='red')
                 label_title.configure(text='Spam')
+                winsound.MessageBeep(winsound.SND_NOWAIT)
             else:
                 label_icon.configure(text='✔',fg='green')
                 label_title.configure(text='Ham')
+                winsound.MessageBeep(winsound.SND_NOSTOP)
 
             en_mail_text.configure(state='disabled')
         else:
@@ -93,8 +96,13 @@ def generate_interface():
         global content
         global email
         global ip
-        d.train(content,False,ip,email)
-        d.save()
+        if content != "" and\
+             email != "":
+            d.train(content,False,ip,email)
+            d.save()
+        else:
+            label_percent.configure(text='Please first open a file!',fg='red')
+
 
     def report_spam():
         """
