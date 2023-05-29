@@ -23,8 +23,9 @@
 #### Example:
 
 ```py
->>> detect_email()
-"True or False"
+>>> detector = email_detector('hadi@google.com')
+>>> detector.detect_email()
+True
 ```
 ### detect_domain_email
    This method gets the email from **self** and specifies whether the email domain is valid or not
@@ -46,8 +47,9 @@
    #### Example:
    
    ```py
-   >>> detect_email_domain()
-   "True or False"
+   >>> detector = email_detector('hadi@google.com')
+   >>> detector.detect_email_domain()
+   True
    ```
 ### detect_ip_address
 
@@ -66,8 +68,9 @@
    #### Example:
    
    ```py
-   >>> detect_ip_address()
-   "True or False"
+   >>> detector = email_detector('hadi@google.com')
+   >>> detector.detect_ip_address('1.116.222.161')
+   False
    ```
 # Detector File
 
