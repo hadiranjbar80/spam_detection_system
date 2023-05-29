@@ -210,3 +210,41 @@ Evaluate and return the spam score of a content. The higher the score, the stron
 def is_spam(self, content: str):
     return self.score(content) > 0.9
 ```
+
+
+# Detector.py File (Model class)
+Save & Load the model in/from the file system using Python's json module.
+
+## Class Variables
+### DEFAULT_DATA_PATH
+The location of the data model to be save. The default is `"database/model.json"`. 
+```py
+DEFAULT_DATA_PATH = "database/model.json"
+ ```
+## Class Methods
+### load method
+Load the serialized file from the specified file_path, and return _'spam_count_total'_, _'ham_count_total'_ and _'token_table'_.
+
+```py
+def load(self, file_path=None):
+    file_path = file_path if file_path else self.DEFAULT_DATA_PATH
+    if not os.path.exists(file_path):
+        with open(file_path, 'a'):
+            os.utime(file_path, None)
+        with open(file_path, 'rb') as f:
+            try:
+                return json.load(f)
+            except:
+                return (0, 0, {})
+```
+
+### save method        
+Serialize the model using Python's json module, and save the serialized modle as a file which is indicated by 'self.file_path'.
+
+```py
+def save(self):
+    with open(self.file_path, "w", encoding="utf8") as f:
+        json.dump(
+            (self.spam_count_total, self.ham_count_total,
+            self.token_table), f)
+```
