@@ -13,14 +13,6 @@ def get_file():
     with open(filename,encoding="utf-8") as file:
         return file.read()
 ```
-
-#### Example:
-```py
->>> file = interface.get_file("text.txt")
->>> print(file)
-"content of the file is here."
-```
-
 ### get_file_content method
     
    This method uses the **EmailParser** class and separates each individual part of that file into related textbox.
@@ -39,12 +31,6 @@ def get_file_conten():
   en_mail_text.delete(1.0, tk.END)
   en_mail_text.insert(tk.END,content)
   en_mail_text.configure(state='disabled')
-```
-
-#### Example:
-```py
->>> get_file_content()
-"The values will fit into text boxes."
 ```
 ### calculate_text method
 
@@ -71,12 +57,6 @@ def calculate_text():
       en_mail_text.configure(state='disabled')
   else:
       label_percent.configure(text='Please first open a file!',fg='red')
-```
-
-#### Example:
-```py
->>> calculate_text()
-"Calculates the score of email and show it into label_percent."
 ```
 ### report_ham and report_spam method
 
@@ -106,10 +86,4 @@ def calculate_text():
      d.train(content, True,ip,email)
      d.save()
   ```
-  
-  #### Example:
-  ```py
-  >>> report_ham()
-  >>> report_spam()
-  "Called in buttons."
-  ```
+ 
