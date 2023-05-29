@@ -1,7 +1,7 @@
 """
 Spam Detector
 This detector contain base code for spam email detection.
-This system uses the baysian spam filter techninc to achive this.
+This system uses the baysian spam filter technique to achive this.
 
 Data Mining:    Final Project
 Date:           May 2023
@@ -21,7 +21,7 @@ class Detector:
     """
     Spam Detector
     This detector contain base code for spam email detection.
-    This system uses the baysian spam filter techninc to achive this.
+    This system uses the baysian spam filter technique to achive this.
 
     Data Mining:    Final Project
     Date:           May 2023
